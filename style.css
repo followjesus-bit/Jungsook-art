@@ -1,8 +1,36 @@
-#photo {
+/* Wrapper centers content and constrains width */
+.gallery-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* Image container uses viewport height for reliable fit */
+#image-container {
   width: 100%;
   max-width: 800px;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Image scales proportionally and stays visible */
+#photo {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
   height: auto;
+  object-fit: contain;
   display: block;
   margin: 0 auto;
-  object-fit: contain;
+}
+
+/* Description styling */
+.desc {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #333;
+  text-align: center;
 }
