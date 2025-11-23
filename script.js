@@ -1,0 +1,65 @@
+const imageNames = [
+  "0188.png","0194.png","0209.png","0226.png","0239.png",
+  "5349.png","5356.png","5357.png","5360.png","5364.png",
+  "5365.png","5369.png","5371.png","5373.png","5378.png",
+  "5380.png","5385.png","5389.png","5393.png","5397.png",
+  "5400.png","5407.png","5411.png","5413.png","5418.png",
+  "5421.png","5441.png","5448.png","5454.png","5458.png",
+  "5461.png","5473.png","5475.png","5480.png","5484.png",
+  "5487.png","5490.png","5494.png","5498.png","5502.png",
+  "5506.png","5508.png","5512.png","5517.png","5554.png",
+  "5556.png","5560.png","5562.png","5567.png","5578.png",
+  "jars.png","jungsook.png"
+];
+
+const descriptions = {};
+imageNames.forEach(name => {
+  descriptions[name] = {
+    ko: `${name} 작품 설명\n두 번째 줄 설명\n세 번째 줄 설명`,
+    en: `Description of ${name}\nSecond line of explanation\nThird line of explanation`
+  };
+});
+
+let currentIndex = 0;
+let currentLang = "ko";
+
+const gallery = document.getElementById("gallery");
+const descBox = document.getElementById("desc");
+const pageInfo = document.getElementById("pageInfo");
+
+// Create and append images
+imageNames.forEach((name, i) => {
+  const img = document.createElement("img");
+  img.src = `images/${name}`;
+  img.loading = "lazy";
+  if (i === 0) img.classList.add("active");
+  gallery.appendChild(img);
+});
+
+function showImage(index) {
+  const imgs = gallery.querySelectorAll("img");
+  imgs.forEach(img => img.classList.remove("active"));
+  imgs[index].classList.add("active");
+
+  const name = imageNames[index];
+  pageInfo.textContent = `${index + 1} / ${imageNames.length} — ${name}`;
+  descBox.innerText = descriptions[name][currentLang];
+}
+
+function prevImage() {
+  currentIndex = (currentIndex - 1 + imageNames.length) % imageNames.length;
+  showImage(currentIndex);
+}
+
+function nextImage() {
+  currentIndex = (currentIndex + 1) % imageNames.length;
+  showImage(currentIndex);
+}
+
+function switchLang() {
+  currentLang = currentLang === "ko" ? "en" : "ko";
+  showImage(currentIndex);
+}
+
+setInterval(nextImage, 6000);
+showImage(currentIndex);
