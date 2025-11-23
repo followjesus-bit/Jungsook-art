@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jungsook Art Photobook</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>Jungsook Art Photobook</header>
+  <header>
+    <h1>Jungsook Art Photobook</h1>
+  </header>
 
-  <div id="topbar">
-    <span id="pageInfo"></span>
+  <div class="gallery-wrapper">
+    <div id="image-container">
+      <img id="photo" src="images/0209.png" alt="Artwork">
+    </div>
+    <div class="desc">
+      <p id="desc-line1">0209.png 작품 설명</p>
+      <p id="desc-line2">두 번째 줄 설명</p>
+      <p id="desc-line3">세 번째 줄 설명</p>
+    </div>
+    <div class="nav-buttons">
+      <button onclick="prevImage()">⬅️ 이전</button>
+      <button onclick="nextImage()">➡️ 다음</button>
+    </div>
   </div>
 
-  <div id="gallery-wrapper">
-    <button class="side-btn" onclick="prevImage()">◀</button>
-    <div id="gallery"></div>
-    <button class="side-btn" onclick="nextImage()">▶</button>
-  </div>
-
-  <div class="desc" id="desc"></div>
-
-  <div class="controls">
-    <button onclick="switchLang()">언어 전환</button>
-  </div>
-
-  <audio id="bgm" src="music.mp3" autoplay loop></audio>
-
-  <!-- Link to external JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
