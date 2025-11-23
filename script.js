@@ -23,7 +23,9 @@ function updateImage() {
   document.getElementById("desc-line2").textContent = desc[1];
   document.getElementById("desc-line3").textContent = desc[2];
 
-  document.getElementById("page-number").textContent = `${currentIndex + 1} / ${imageNames.length}`;
+  // ✅ Update page number
+  document.getElementById("page-number").textContent =
+    `${currentIndex + 1} / ${imageNames.length}`;
 }
 
 function prevImage() {
@@ -38,7 +40,8 @@ function nextImage() {
 
 function toggleLang() {
   currentLang = currentLang === "en" ? "ko" : "en";
-  document.getElementById("lang-toggle").textContent = currentLang === "en" ? "En" : "한글";
+  document.getElementById("lang-toggle").textContent =
+    currentLang === "en" ? "En" : "한글";
   updateImage();
 }
 
