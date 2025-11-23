@@ -4,7 +4,7 @@ const imageNames = Array.from({ length: 52 }, (_, i) => {
 });
 
 let currentIndex = 0;
-let currentLang = "ko";
+let currentLang = "en";
 
 const descriptions = {};
 imageNames.forEach(name => {
@@ -35,8 +35,8 @@ function nextImage() {
 }
 
 function toggleLang() {
-  currentLang = currentLang === "ko" ? "en" : "ko";
-  document.getElementById("lang-toggle").textContent = currentLang === "ko" ? "En" : "한글";
+  currentLang = currentLang === "en" ? "ko" : "en";
+  document.getElementById("lang-toggle").textContent = currentLang === "en" ? "En" : "한글";
   updateImage();
 }
 
