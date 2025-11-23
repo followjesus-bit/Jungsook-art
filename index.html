@@ -7,44 +7,36 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Centered title -->
   <header>
     <h1 class="title">Jungsook’s Art Photobook</h1>
   </header>
 
-  <!-- Page info -->
   <div class="topbar">
     <span id="page-info"></span>
   </div>
 
-  <!-- Gallery -->
   <div class="gallery-wrapper">
     <div id="image-container">
-      <!-- No hardcoded src; script.js sets this dynamically -->
       <img id="photo" alt="Artwork">
     </div>
 
-    <!-- Language switch -->
     <div class="lang-switch">
       <button onclick="setLang('ko')">🇰🇷 한국어</button>
       <button onclick="setLang('en')">🇺🇸 English</button>
     </div>
 
-    <!-- Descriptions -->
     <div class="desc">
       <p id="desc-line1"></p>
       <p id="desc-line2"></p>
       <p id="desc-line3"></p>
     </div>
 
-    <!-- Navigation -->
     <div class="nav-buttons">
       <button onclick="prevImage()">⬅️ 이전</button>
       <button onclick="nextImage()">➡️ 다음</button>
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="script.js"></script>
 </body>
 </html>
