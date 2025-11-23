@@ -1,160 +1,20 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jungsook’s Art Photobook</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background: #fff;
-      color: #111;
-      text-align: center;
-    }
-
-    header {
-      padding: 24px 0 8px;
-    }
-    .title {
-      margin: 0;
-      font-size: 24px;
-      font-weight: 600;
-    }
-
-    .topbar {
-      margin-bottom: 12px;
-      font-size: 14px;
-      color: #555;
-    }
-
-    .gallery-wrapper {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 8px 16px 24px;
-    }
-
-    #image-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 300px;
-    }
-    #photo {
-      max-width: 100%;
-      height: auto;
-      border-radius: 4px;
-    }
-
-    .lang-switch {
-      margin: 12px 0;
-    }
-    .lang-switch button {
-      margin: 0 6px;
-      padding: 8px 12px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    .desc {
-      margin: 8px 0 16px;
-      line-height: 1.5;
-    }
-    .desc p {
-      margin: 4px 0;
-    }
-
-    .nav-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 8px;
-    }
-    .nav-buttons button {
-      padding: 8px 14px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-  </style>
+  <title>Simple Image Viewer</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1 class="title">Jungsook’s Art Photobook</h1>
-  </header>
-
-  <div class="topbar">
-    <span id="page-info"></span>
-  </div>
-
-  <div class="gallery-wrapper">
-    <div id="image-container">
-      <img id="photo" alt="Artwork" />
-    </div>
-
-    <div class="lang-switch">
-      <button onclick="setLang('ko')">🇰🇷 한국어</button>
-      <button onclick="setLang('en')">🇺🇸 English</button>
-    </div>
-
-    <div class="desc">
-      <p id="desc-line1"></p>
-      <p id="desc-line2"></p>
-      <p id="desc-line3"></p>
-    </div>
-
+  <h1>Simple Image Viewer</h1>
+  <div class="viewer">
+    <img id="photo" alt="Artwork" />
     <div class="nav-buttons">
-      <button onclick="prevImage()">⬅️ 이전</button>
-      <button onclick="nextImage()">➡️ 다음</button>
+      <button onclick="prevImage()">⬅️ Previous</button>
+      <button onclick="nextImage()">➡️ Next</button>
     </div>
   </div>
-
-  <script>
-    const imageNames = Array.from({ length: 52 }, (_, i) => {
-      const num = i + 1;
-      return num < 10 ? `00${num}.png` : `0${num}.png`;
-    });
-
-    const descriptions = {};
-    imageNames.forEach(name => {
-      descriptions[name] = {
-        ko: [`${name} 작품 설명`, "두 번째 줄 설명", "세 번째 줄 설명"],
-        en: [`Description of ${name}`, "Second line", "Third line"]
-      };
-    });
-
-    let currentIndex = 0;
-    let currentLang = "ko";
-
-    function updateImage() {
-      const filename = imageNames[currentIndex];
-      const photo = document.getElementById("photo");
-      photo.src = "images/" + filename;
-
-      const desc = descriptions[filename][currentLang];
-      document.getElementById("desc-line1").textContent = desc[0];
-      document.getElementById("desc-line2").textContent = desc[1];
-      document.getElementById("desc-line3").textContent = desc[2];
-
-      document.getElementById("page-info").textContent =
-        `${currentIndex + 1} / ${imageNames.length} — ${filename}`;
-    }
-
-    function prevImage() {
-      currentIndex = (currentIndex - 1 + imageNames.length) % imageNames.length;
-      updateImage();
-    }
-
-    function nextImage() {
-      currentIndex = (currentIndex + 1) % imageNames.length;
-      updateImage();
-    }
-
-    function setLang(lang) {
-      currentLang = lang;
-      updateImage();
-    }
-
-    updateImage();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
