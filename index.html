@@ -2,41 +2,436 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jungsook Art Photobook</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jungsook’s Art Photobook</title>
+
+  <!-- Meta for social sharing -->
+  <meta name="description" content="A bilingual photobook of Jungsook’s artwork, with accessible navigation and full-screen viewing.">
+  <meta property="og:title" content="Jungsook’s Art Photobook">
+  <meta property="og:description" content="Explore artwork with simple navigation, bilingual descriptions, and a smooth viewer.">
+  <meta property="og:type" content="website">
+
+  <!-- Base styles -->
+  <style>
+    /* Reset and base */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: #ffffff;
+      color: #111111;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Layout */
+    .page {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 22px 16px 8px;
+      text-align: center;
+    }
+    .title {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .topbar {
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .gallery-wrapper {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 8px 16px 24px;
+    }
+
+    /* Image viewer */
+    #image-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 320px;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #f8f9fa;
+    }
+    #photo {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      transition: opacity 220ms ease, transform 220ms ease;
+      opacity: 0;
+      transform: translateY(6px);
+      cursor: zoom-in;
+    }
+    #photo.loaded {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Loading shimmer (optional) */
+    .shimmer {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #f2f2f2 0%, #e9ecef 50%, #f2f2f2 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.2s infinite;
+      border-radius: 6px;
+    }
+    @keyframes shimmer {
+      0% { background-position: -100% 0; }
+      100% { background-position: 100% 0; }
+    }
+    .shimmer.hidden { display: none; }
+
+    /* Language buttons */
+    .lang-switch {
+      margin: 14px 0 6px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .btn {
+      appearance: none;
+      border: 1px solid #ccc;
+      background: #fff;
+      color: #111;
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+    .btn:hover {
+      border-color: #999;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .btn:active {
+      background: #f4f4f4;
+    }
+    .btn[aria-pressed="true"] {
+      border-color: #0070f3;
+      color: #0070f3;
+    }
+
+    /* Descriptions */
+    .desc {
+      margin: 8px 0 14px;
+      line-height: 1.55;
+      text-align: center;
+    }
+    .desc p {
+      margin: 4px 0;
+      font-size: 15px;
+    }
+
+    /* Navigation controls */
+    .nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .nav .btn {
+      min-width: 84px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      padding: 16px;
+      text-align: center;
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* Keyboard hint */
+    .hint {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #777;
+      text-align: center;
+    }
+
+    /* Modal viewer */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+    }
+    .modal.open { display: flex; }
+    .modal-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+      cursor: zoom-out;
+    }
+    .modal-close {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #fff;
+      color: #111;
+      border: 1px solid #ddd;
+      border-radius: 999px;
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .modal-close:hover {
+      background: #f6f6f6;
+    }
+
+    /* Accessibility focus */
+    :focus-visible {
+      outline: 2px solid #0070f3;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 420px) {
+      .title { font-size: 20px; }
+      .desc p { font-size: 14px; }
+      .nav .btn { min-width: auto; }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1 class="title">Jungsook’s Art Photobook</h1>
-  </header>
+  <div class="page">
+    <!-- Header -->
+    <header role="banner">
+      <h1 class="title" id="site-title" tabindex="-1">Jungsook’s Art Photobook</h1>
+    </header>
 
-  <div class="topbar">
-    <span id="page-info"></span>
+    <!-- Page info -->
+    <div class="topbar" aria-live="polite" aria-atomic="true">
+      <span id="page-info"></span>
+    </div>
+
+    <!-- Main content -->
+    <main id="main" role="main">
+      <section class="gallery-wrapper" aria-label="Artwork viewer">
+        <div id="image-container" aria-live="polite" aria-atomic="true">
+          <div class="shimmer" id="shimmer" aria-hidden="true"></div>
+          <img id="photo" alt="Artwork" decoding="async" loading="eager">
+        </div>
+
+        <!-- Language switch -->
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button class="btn" id="btn-ko" onclick="setLang('ko')" aria-pressed="true">🇰🇷 한국어</button>
+          <button class="btn" id="btn-en" onclick="setLang('en')" aria-pressed="false">🇺🇸 English</button>
+        </div>
+
+        <!-- Descriptions -->
+        <div class="desc" aria-live="polite" aria-atomic="true">
+          <p id="desc-line1"></p>
+          <p id="desc-line2"></p>
+          <p id="desc-line3"></p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav" role="group" aria-label="Navigation">
+          <button class="btn" id="prev-btn" onclick="prevImage()" aria-label="Previous image">⬅️ 이전</button>
+          <button class="btn" id="next-btn" onclick="nextImage()" aria-label="Next image">➡️ 다음</button>
+        </div>
+
+        <!-- Keyboard hint -->
+        <p class="hint">Tip: Use ← and → keys to navigate. Press Enter to open full-screen, Esc to close.</p>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+      <span id="footer-info">© Jungsook · Photobook Viewer</span>
+    </footer>
   </div>
 
-  <div class="gallery-wrapper">
-    <div id="image-container">
-      <img id="photo" alt="Artwork">
-    </div>
-
-    <div class="lang-switch">
-      <button onclick="setLang('ko')">🇰🇷 한국어</button>
-      <button onclick="setLang('en')">🇺🇸 English</button>
-    </div>
-
-    <div class="desc">
-      <p id="desc-line1"></p>
-      <p id="desc-line2"></p>
-      <p id="desc-line3"></p>
-    </div>
-
-    <div class="nav-buttons">
-      <button onclick="prevImage()">⬅️ 이전</button>
-      <button onclick="nextImage()">➡️ 다음</button>
+  <!-- Modal for zoom -->
+  <div class="modal" id="modal" aria-modal="true" role="dialog" aria-label="Full-screen image viewer">
+    <div class="modal-content">
+      <img id="modal-img" class="modal-img" alt="Artwork full-screen">
+      <button class="modal-close" id="modal-close" aria-label="Close full-screen">✕</button>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Inline script for a self-contained baseline (no music code) -->
+  <script>
+    // Generate image filenames: 001.png ... 052.png
+    const imageNames = Array.from({ length: 52 }, (_, i) => {
+      const num = i + 1;
+      return num < 10 ? \`00\${num}.png\` : \`0\${num}.png\`;
+    });
+
+    // Placeholder bilingual descriptions
+    const descriptions = {};
+    imageNames.forEach(name => {
+      descriptions[name] = {
+        ko: [\`\${name} 작품 설명\`, "두 번째 줄 설명", "세 번째 줄 설명"],
+        en: [\`Description of \${name}\`, "Second line", "Third line"]
+      };
+    });
+
+    // State
+    let currentIndex = 0;
+    let currentLang = "ko";
+
+    // Elements
+    const photo = document.getElementById("photo");
+    const shimmer = document.getElementById("shimmer");
+    const pageInfo = document.getElementById("page-info");
+    const btnKo = document.getElementById("btn-ko");
+    const btnEn = document.getElementById("btn-en");
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modal-img");
+    const modalClose = document.getElementById("modal-close");
+
+    // Update language button states
+    function updateLangButtons() {
+      const isKo = currentLang === "ko";
+      btnKo.setAttribute("aria-pressed", isKo ? "true" : "false");
+      btnEn.setAttribute("aria-pressed", isKo ? "false" : "true");
+    }
+
+    // Update UI with current image and language
+    function updateImage() {
+      const filename = imageNames[currentIndex];
+
+      // Show shimmer while loading
+      shimmer.classList.remove("hidden");
+      photo.classList.remove("loaded");
+
+      // Cache bust to avoid stale GitHub Pages assets while keeping consistent URLs
+      const src = \`images/\${filename}\`;
+      photo.src = src;
+
+      // Update descriptions
+      const desc = descriptions[filename][currentLang];
+      document.getElementById("desc-line1").textContent = desc[0];
+      document.getElementById("desc-line2").textContent = desc[1];
+      document.getElementById("desc-line3").textContent = desc[2];
+
+      // Update page info
+      pageInfo.textContent = \`\${currentIndex + 1} / \${imageNames.length} — \${filename}\`;
+
+      // Handle load states
+      photo.onload = () => {
+        shimmer.classList.add("hidden");
+        photo.classList.add("loaded");
+      };
+      photo.onerror = () => {
+        shimmer.classList.add("hidden");
+        photo.classList.remove("loaded");
+        // Keep layout stable; image failed likely due to missing file.
+        console.warn("Failed to load:", src);
+      };
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + imageNames.length) % imageNames.length;
+      updateImage();
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % imageNames.length;
+      updateImage();
+    }
+
+    function setLang(lang) {
+      currentLang = lang;
+      updateLangButtons();
+      updateImage();
+    }
+
+    // Keyboard navigation
+    function onKey(e) {
+      if (modal.classList.contains("open")) {
+        // In modal
+        if (e.key === "Escape") {
+          closeModal();
+        } else if (e.key === "ArrowLeft") {
+          prevImage();
+          // keep modal image in sync
+          modalImg.src = photo.src;
+        } else if (e.key === "ArrowRight") {
+          nextImage();
+          modalImg.src = photo.src;
+        }
+        return;
+      }
+      if (e.key === "ArrowLeft") prevImage();
+      if (e.key === "ArrowRight") nextImage();
+      if (e.key === "Enter") openModal();
+    }
+
+    // Modal controls
+    function openModal() {
+      modal.classList.add("open");
+      modalImg.src = photo.src;
+      // focus close button for accessibility
+      modalClose.focus();
+    }
+    function closeModal() {
+      modal.classList.remove("open");
+      // return focus to main title for continuity
+      document.getElementById("site-title").focus();
+    }
+
+    // Click-to-zoom
+    photo.addEventListener("click", () => openModal());
+    modalClose.addEventListener("click", () => closeModal());
+    modal.addEventListener("click", (e) => {
+      // click outside image closes modal
+      if (e.target === modal) closeModal();
+    });
+
+    // Keyboard
+    document.addEventListener("keydown", onKey);
+
+    // Initialize
+    updateLangButtons();
+    updateImage();
+
+    // Expose functions to buttons (global)
+    window.prevImage = prevImage;
+    window.nextImage = nextImage;
+    window.setLang = setLang;
+  </script>
 </body>
 </html>
