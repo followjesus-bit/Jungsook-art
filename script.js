@@ -27,10 +27,10 @@ const gallery = document.getElementById("gallery");
 const descBox = document.getElementById("desc");
 const pageInfo = document.getElementById("pageInfo");
 
-// Load all images
+// Load all images from the 'files' folder
 imageNames.forEach((name, i) => {
   const img = document.createElement("img");
-  img.src = `images/${name}`; // folder must be named 'images'
+  img.src = `files/${name}`;   // ✅ corrected folder path
   img.loading = "lazy";
   if (i === 0) img.classList.add("active");
   gallery.appendChild(img);
