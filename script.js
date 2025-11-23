@@ -27,10 +27,10 @@ const gallery = document.getElementById("gallery");
 const descBox = document.getElementById("desc");
 const pageInfo = document.getElementById("pageInfo");
 
-// Create and append images
+// Load all images
 imageNames.forEach((name, i) => {
   const img = document.createElement("img");
-  img.src = `images/${name}`;
+  img.src = `images/${name}`; // folder must be named 'images'
   img.loading = "lazy";
   if (i === 0) img.classList.add("active");
   gallery.appendChild(img);
@@ -61,5 +61,6 @@ function switchLang() {
   showImage(currentIndex);
 }
 
+// Auto slideshow
 setInterval(nextImage, 6000);
 showImage(currentIndex);
