@@ -7,19 +7,32 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Centered title -->
   <header>
-    <h1>Jungsook Art Photobook</h1>
+    <h1 class="title">Jungsook’s Art Photobook</h1>
   </header>
+
+  <!-- Page info -->
+  <div class="topbar">
+    <span id="page-info"></span>
+  </div>
 
   <div class="gallery-wrapper">
     <div id="image-container">
       <img id="photo" src="images/0188.png" alt="Artwork">
     </div>
+
+    <div class="lang-switch">
+      <button onclick="setLang('ko')">🇰🇷 한국어</button>
+      <button onclick="setLang('en')">🇺🇸 English</button>
+    </div>
+
     <div class="desc">
       <p id="desc-line1"></p>
       <p id="desc-line2"></p>
       <p id="desc-line3"></p>
     </div>
+
     <div class="nav-buttons">
       <button onclick="prevImage()">⬅️ 이전</button>
       <button onclick="nextImage()">➡️ 다음</button>
