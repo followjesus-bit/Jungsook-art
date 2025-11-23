@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Simple Image Viewer</title>
+  <title>사슴의 노래 Songs of the Hind</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Simple Image Viewer</h1>
+  <h1>사슴의 노래 Songs of the Hind</h1>
   <div class="viewer">
-    <div class="nav-buttons">
-      <button onclick="prevImage()">⬅️ Previous</button>
-      <button onclick="nextImage()">➡️ Next</button>
+    <div class="nav-bar">
+      <button id="lang-toggle" onclick="toggleLang()">En</button>
+      <button onclick="prevImage()">⬅️ 이전</button>
+      <button onclick="nextImage()">➡️ 다음</button>
     </div>
     <img id="photo" alt="Artwork" />
+    <div class="desc">
+      <p id="desc-line1"></p>
+      <p id="desc-line2"></p>
+      <p id="desc-line3"></p>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>
