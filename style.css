@@ -16,19 +16,18 @@ h1 {
   padding: 16px;
 }
 
-#photo {
-  max-width: 100%;
-  height: auto;
-  border-radius: 6px;
-  margin-bottom: 12px;
-}
-
 .nav-buttons {
   display: flex;
   justify-content: center;
   gap: 12px;
+  margin-bottom: 12px;
 }
 
+#photo {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
 button {
   padding: 8px 16px;
   font-size: 14px;
