@@ -1,0 +1,21 @@
+// comments.js
+// This script loads bilingual captions from comments.json
+
+let descriptions = {};
+
+function loadComments(callback) {
+  fetch("comments.json")
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to load comments.json");
+      return res.json();
+    })
+    .then(data => {
+      descriptions = data;
+      if (typeof callback === "function") {
+        callback();
+      }
+    })
+    .catch(err => {
+      console.error("Error loading comments:", err);
+    });
+}
