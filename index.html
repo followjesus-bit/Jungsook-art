@@ -7,16 +7,33 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Title Section -->
   <div class="title">
     <h1>사슴의 노래</h1>
     <h2>Songs of the Hind (JungSook Kim)</h2>
   </div>
 
-  <!-- Your existing photobook viewer code -->
+  <!-- Viewer Section -->
   <div id="viewer">
-    <!-- image, captions, buttons, etc. -->
+    <!-- Main Image -->
+    <img id="main-image" src="images/001.png" alt="Photobook image">
+
+    <!-- Captions -->
+    <div id="captions">
+      <p id="desc-line1"></p>
+      <p id="desc-line2"></p>
+      <p id="desc-line3"></p>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="controls">
+      <button id="prev">이전</button>
+      <button id="next">다음</button>
+      <button id="lang-toggle">En</button>
+    </div>
   </div>
 
+  <!-- Script -->
   <script src="script.js"></script>
 </body>
 </html>
