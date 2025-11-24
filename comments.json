@@ -1,21 +1,54 @@
-// comments.js
-// This script loads bilingual captions from comments.json
-
-let descriptions = {};
-
-function loadComments(callback) {
-  fetch("comments.json")
-    .then(res => {
-      if (!res.ok) throw new Error("Failed to load comments.json");
-      return res.json();
-    })
-    .then(data => {
-      descriptions = data;
-      if (typeof callback === "function") {
-        callback();
-      }
-    })
-    .catch(err => {
-      console.error("Error loading comments:", err);
-    });
+{
+  "001.png": { "ko": ["나의 발을 사슴과 같게 하사...", "001 두 번째 설명", "001 세 번째 설명"], "en": ["001 first description", "001 second line", "001 third line"] },
+  "002.png": { "ko": ["002 첫 번째 설명", "002 두 번째 설명", "002 세 번째 설명"], "en": ["002 first description", "002 second line", "002 third line"] },
+  "003.png": { "ko": ["003 첫 번째 설명", "003 두 번째 설명", "003 세 번째 설명"], "en": ["003 first description", "003 second line", "003 third line"] },
+  "004.png": { "ko": ["004 첫 번째 설명", "004 두 번째 설명", "004 세 번째 설명"], "en": ["004 first description", "004 second line", "004 third line"] },
+  "005.png": { "ko": ["005 첫 번째 설명", "005 두 번째 설명", "005 세 번째 설명"], "en": ["005 first description", "005 second line", "005 third line"] },
+  "006.png": { "ko": ["006 첫 번째 설명", "006 두 번째 설명", "006 세 번째 설명"], "en": ["006 first description", "006 second line", "006 third line"] },
+  "007.png": { "ko": ["007 첫 번째 설명", "007 두 번째 설명", "007 세 번째 설명"], "en": ["007 first description", "007 second line", "007 third line"] },
+  "008.png": { "ko": ["008 첫 번째 설명", "008 두 번째 설명", "008 세 번째 설명"], "en": ["008 first description", "008 second line", "008 third line"] },
+  "009.png": { "ko": ["009 첫 번째 설명", "009 두 번째 설명", "009 세 번째 설명"], "en": ["009 first description", "009 second line", "009 third line"] },
+  "010.png": { "ko": ["010 첫 번째 설명", "010 두 번째 설명", "010 세 번째 설명"], "en": ["010 first description", "010 second line", "010 third line"] },
+  "011.png": { "ko": ["011 첫 번째 설명", "011 두 번째 설명", "011 세 번째 설명"], "en": ["011 first description", "011 second line", "011 third line"] },
+  "012.png": { "ko": ["012 첫 번째 설명", "012 두 번째 설명", "012 세 번째 설명"], "en": ["012 first description", "012 second line", "012 third line"] },
+  "013.png": { "ko": ["013 첫 번째 설명", "013 두 번째 설명", "013 세 번째 설명"], "en": ["013 first description", "013 second line", "013 third line"] },
+  "014.png": { "ko": ["014 첫 번째 설명", "014 두 번째 설명", "014 세 번째 설명"], "en": ["014 first description", "014 second line", "014 third line"] },
+  "015.png": { "ko": ["015 첫 번째 설명", "015 두 번째 설명", "015 세 번째 설명"], "en": ["015 first description", "015 second line", "015 third line"] },
+  "016.png": { "ko": ["016 첫 번째 설명", "016 두 번째 설명", "016 세 번째 설명"], "en": ["016 first description", "016 second line", "016 third line"] },
+  "017.png": { "ko": ["017 첫 번째 설명", "017 두 번째 설명", "017 세 번째 설명"], "en": ["017 first description", "017 second line", "017 third line"] },
+  "018.png": { "ko": ["018 첫 번째 설명", "018 두 번째 설명", "018 세 번째 설명"], "en": ["018 first description", "018 second line", "018 third line"] },
+  "019.png": { "ko": ["019 첫 번째 설명", "019 두 번째 설명", "019 세 번째 설명"], "en": ["019 first description", "019 second line", "019 third line"] },
+  "020.png": { "ko": ["020 첫 번째 설명", "020 두 번째 설명", "020 세 번째 설명"], "en": ["020 first description", "020 second line", "020 third line"] },
+  "021.png": { "ko": ["021 첫 번째 설명", "021 두 번째 설명", "021 세 번째 설명"], "en": ["021 first description", "021 second line", "021 third line"] },
+  "022.png": { "ko": ["022 첫 번째 설명", "022 두 번째 설명", "022 세 번째 설명"], "en": ["022 first description", "022 second line", "022 third line"] },
+  "023.png": { "ko": ["023 첫 번째 설명", "023 두 번째 설명", "023 세 번째 설명"], "en": ["023 first description", "023 second line", "023 third line"] },
+  "024.png": { "ko": ["024 첫 번째 설명", "024 두 번째 설명", "024 세 번째 설명"], "en": ["024 first description", "024 second line", "024 third line"] },
+  "025.png": { "ko": ["025 첫 번째 설명", "025 두 번째 설명", "025 세 번째 설명"], "en": ["025 first description", "025 second line", "025 third line"] },
+  "026.png": { "ko": ["026 첫 번째 설명", "026 두 번째 설명", "026 세 번째 설명"], "en": ["026 first description", "026 second line", "026 third line"] },
+  "027.png": { "ko": ["027 첫 번째 설명", "027 두 번째 설명", "027 세 번째 설명"], "en": ["027 first description", "027 second line", "027 third line"] },
+  "028.png": { "ko": ["028 첫 번째 설명", "028 두 번째 설명", "028 세 번째 설명"], "en": ["028 first description", "028 second line", "028 third line"] },
+  "029.png": { "ko": ["029 첫 번째 설명", "029 두 번째 설명", "029 세 번째 설명"], "en": ["029 first description", "029 second line", "029 third line"] },
+  "030.png": { "ko": ["030 첫 번째 설명", "030 두 번째 설명", "030 세 번째 설명"], "en": ["030 first description", "030 second line", "030 third line"] },
+  "031.png": { "ko": ["031 첫 번째 설명", "031 두 번째 설명", "031 세 번째 설명"], "en": ["031 first description", "031 second line", "031 third line"] },
+  "032.png": { "ko": ["032 첫 번째 설명", "032 두 번째 설명", "032 세 번째 설명"], "en": ["032 first description", "032 second line", "032 third line"] },
+  "033.png": { "ko": ["033 첫 번째 설명", "033 두 번째 설명", "033 세 번째 설명"], "en": ["033 first description", "033 second line", "033 third line"] },
+  "034.png": { "ko": ["034 첫 번째 설명", "034 두 번째 설명", "034 세 번째 설명"], "en": ["034 first description", "034 second line", "034 third line"] },
+  "035.png": { "ko": ["035 첫 번째 설명", "035 두 번째 설명", "035 세 번째 설명"], "en": ["035 first description", "035 second line", "035 third line"] },
+  "036.png": { "ko": ["036 첫 번째 설명", "036 두 번째 설명", "036 세 번째 설명"], "en": ["036 first description", "036 second line", "036 third line"] },
+  "037.png": { "ko": ["037 첫 번째 설명", "037 두 번째 설명", "037 세 번째 설명"], "en": ["037 first description", "037 second line", "037 third line"] },
+  "038.png": { "ko": ["038 첫 번째 설명", "038 두 번째 설명", "038 세 번째 설명"], "en": ["038 first description", "038 second line", "038 third line"] },
+  "039.png": { "ko": ["039 첫 번째 설명", "039 두 번째 설명", "039 세 번째 설명"], "en": ["039 first description", "039 second line", "039 third line"] },
+  "040.png": { "ko": ["040 첫 번째 설명", "040 두 번째 설명", "040 세 번째 설명"], "en": ["040 first description", "040 second line", "040 third line"] },
+  "041.png": { "ko": ["041 첫 번째 설명", "041 두 번째 설명", "041 세 번째 설명"], "en": ["041 first description", "041 second line", "041 third line"] },
+  "042.png": { "ko": ["042 첫 번째 설명", "042 두 번째 설명", "042 세 번째 설명"], "en": ["042 first description", "042 second line", "042 third line"] },
+  "043.png": { "ko": ["043 첫 번째 설명", "043 두 번째 설명", "043 세 번째 설명"], "en": ["043 first description", "043 second line", "043 third line"] },
+  "044.png": { "ko": ["044 첫 번째 설명", "044 두 번째 설명", "044 세 번째 설명"], "en": ["044 first description", "044 second line", "044 third line"] },
+  "045.png": { "ko": ["045 첫 번째 설명", "045 두 번째 설명", "045 세 번째 설명"], "en": ["045 first description", "045 second line", "045 third line"] },
+  "046.png": { "ko": ["046 첫 번째 설명", "046 두 번째 설명", "046 세 번째 설명"], "en": ["046 first description", "046 second line", "046 third line"] },
+  "047.png": { "ko": ["047 첫 번째 설명", "047 두 번째 설명", "047 세 번째 설명"], "en": ["047 first description", "047 second line", "047 third line"] },
+  "048.png": { "ko": ["048 첫 번째 설명", "048 두 번째 설명", "048 세 번째 설명"], "en": ["048 first description", "048 second line", "048 third line"] },
+  "049.png": { "ko": ["049 첫 번째 설명", "049 두 번째 설명", "049 세 번째 설명"], "en": ["049 first description", "049 second line", "049 third line"] },
+  "050.png": { "ko": ["050 첫 번째 설명", "050 두 번째 설명", "050 세 번째 설명"], "en": ["050 first description", "050 second line", "050 third line"] },
+  "051.png": { "ko": ["051 첫 번째 설명", "051 두 번째 설명", "051 세 번째 설명"], "en": ["051 first description", "051 second line", "051 third line"] },
+  "052.png": { "ko": ["052 첫 번째 설명", "052 두 번째 설명", "052 세 번째 설명"], "en": ["052 first description", "052 second line", "052 third line"] }
 }
