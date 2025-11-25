@@ -1,18 +1,20 @@
-const imageNames = Array.from({ length: 52 }, (_, i) => {
-  const num = i + 1;
-  return num < 10 ? `00${num}.png` : `0${num}.png`;
-});
+// Generate filenames 001.png → 052.png
+const imageNames = Array.from({ length: 52 }, (_, i) =>
+  String(i + 1).padStart(3, "0") + ".png"
+);
 
 let currentIndex = 0;
 let currentLang = "en";
+let descriptions = {}; // loaded from comments.json
 
-const descriptions = {};
-imageNames.forEach(name => {
-  descriptions[name] = {
-    ko: [`${name} 첫번째 설명`, "두 번째 설명", "세 번째 설명"],
-    en: [`Description of ${name}`, "Second line", "Third line"]
-  };
-});
+// Load captions dynamically with cache-busting
+fetch("./comments.json?v=" + Date.now(), { cache: "no-store" })
+  .then(res => res.json())
+  .then(data => {
+    descriptions = data;
+    updateImage(); // render first image after captions load
+  })
+  .catch(err => console.error("Failed to load comments.json:", err));
 
 function updateImage() {
   const photoEl = document.getElementById("photo");
@@ -21,12 +23,20 @@ function updateImage() {
   photoEl.style.opacity = 0;
 
   setTimeout(() => {
-    photoEl.src = "images/" + filename;
+    // ✅ Ensure correct path to images folder
+    photoEl.src = "./images/" + filename;
 
-    const desc = descriptions[filename][currentLang];
-    document.getElementById("desc-line1").textContent = desc[0];
-    document.getElementById("desc-line2").textContent = desc[1];
-    document.getElementById("desc-line3").textContent = desc[2];
+    const entry = descriptions[filename];
+    if (entry && entry[currentLang]) {
+      document.getElementById("desc-line1").textContent = entry[currentLang][0] || "";
+      document.getElementById("desc-line2").textContent = entry[currentLang][1] || "";
+      document.getElementById("desc-line3").textContent = entry[currentLang][2] || "";
+    } else {
+      // fallback if captions missing
+      document.getElementById("desc-line1").textContent = "";
+      document.getElementById("desc-line2").textContent = "";
+      document.getElementById("desc-line3").textContent = "";
+    }
 
     document.getElementById("page-number").textContent =
       `${currentIndex + 1} / ${imageNames.length}`;
@@ -39,10 +49,12 @@ function prevImage() {
   currentIndex = (currentIndex - 1 + imageNames.length) % imageNames.length;
   updateImage();
 }
+
 function nextImage() {
   currentIndex = (currentIndex + 1) % imageNames.length;
   updateImage();
 }
+
 function toggleLang() {
   currentLang = currentLang === "en" ? "ko" : "en";
   document.getElementById("lang-toggle").textContent =
@@ -86,6 +98,5 @@ function initImageGestures() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  updateImage();
   initImageGestures();
 });
