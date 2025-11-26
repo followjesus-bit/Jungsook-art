@@ -1,29 +1,30 @@
-// Generate filenames 001.png → 052.png
-const imageNames = Array.from({ length: 52 }, (_, i) =>
-  String(i + 1).padStart(3, "0") + ".png"
-);
-
 let currentIndex = 0;
 let currentLang = "en";
-let descriptions = {}; // loaded from comments.json
+let descriptions = {};
+let imageNames = [];
 
-// Load captions dynamically with cache-busting
+// Load captions dynamically
 fetch("./comments.json?v=" + Date.now(), { cache: "no-store" })
   .then(res => res.json())
   .then(data => {
     descriptions = data;
+
+    // Build imageNames list directly from JSON keys
+    imageNames = Object.keys(descriptions).sort();
+
     updateImage(); // render first image after captions load
   })
   .catch(err => console.error("Failed to load comments.json:", err));
 
 function updateImage() {
+  if (imageNames.length === 0) return;
+
   const photoEl = document.getElementById("photo");
   const filename = imageNames[currentIndex];
 
   photoEl.style.opacity = 0;
 
   setTimeout(() => {
-    // ✅ Ensure correct path to images folder
     photoEl.src = "./images/" + filename;
 
     const entry = descriptions[filename];
@@ -32,7 +33,6 @@ function updateImage() {
       document.getElementById("desc-line2").textContent = entry[currentLang][1] || "";
       document.getElementById("desc-line3").textContent = entry[currentLang][2] || "";
     } else {
-      // fallback if captions missing
       document.getElementById("desc-line1").textContent = "";
       document.getElementById("desc-line2").textContent = "";
       document.getElementById("desc-line3").textContent = "";
