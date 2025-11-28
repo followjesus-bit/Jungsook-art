@@ -77,18 +77,19 @@
   },
   "020.png": {
     "ko": ["허드슨 강변 스테이트 룩아웃 공원", "높은 하늘엔 활공하는 독수리", "절벽 바위에 카펫 처럼 함께 핀 꽃들"],
-    "en": ["State Lookout park on the banks of the Hudson", "Above, a eagle gliding", "below, flowers cover the rock face like a carpet"]
+    "en": ["State Lookout park on the banks of the Hudson", "Above, a eagle gliding", "Below, flowers cover the rock face like a carpet"]
   },
   "021.png": {
     "ko": ["부추 꽃", "별 빛이 쏟아져 내리는 밤", "달빛 가득 담은 하얀 꽃"],
     "en": ["the Chives are flowering", "the starlight is raining down tonight", "while the white flowers drink up the moonlight"]
-  },  "022.png": {
+  },  
+  "022.png": {
     "ko": ["수 놓은 꽃", "대지의 카펫에 예쁜 자수를 놓으신 하나님", "우린 하나님 안에서 그의 꽃길을 걷고 있어요"],
-    "en": ["022 first description", "022 second line", "022 third line"]
+    "en": ["Embriodered flowers", "Beutiful handiwork on the carpet of the earth by God", "We in him walk in his Embriodered paths"]
   },
   "023.png": {
     "ko": ["꽃 배달이 왔어요", "어디서나 볼 수 있는 흔한 꽃", "모여 필때 더욱 멋진 꽃"],
-    "en": ["023 first description", "023 second line", "023 third line"]
+    "en": ["Flower delivery!", "Flowers you can find anywhere", "Beutiful when blooming togehter"]
   },
   "024.png": {
     "ko": ["024 첫 번째 설명", "024 두 번째 설명", "024 세 번째 설명"],
@@ -96,35 +97,35 @@
   },
   "025.png": {
     "ko": ["가을의 나룻 배", "말 없이 사람을 나르는", "나룻배 같은 전도자의 삶을 생각하는 가을날"],
-    "en": ["025 first description", "025 second line", "025 third line"]
+    "en": ["A ferry boat of the fall", "Moves people without complaint or fanfare", "Maybe that is the real life of an evangalist"]
   },
   "026.png": {
     "ko": ["일곱 별", "허드슨 강가에서", "세상을 밝히는 주님의 교회를 생각하며"],
-    "en": ["026 first description", "026 second line", "026 third line"]
+    "en": ["Seven Stars", "On the banks of the Hudson", "Thinking of the seven lamps, the churches of God"]
   },
   "027.png": {
     "ko": ["약이 된다는 Cornflower 꽃", "아름답고 치유를 줄 수 있는", "약꽃이 되고 싶은 마음으로"],
-    "en": ["027 first description", "027 second line", "027 third line"]
+    "en": ["The Cornflower, known to be medicinal", "Beauty and healing together", "I wish to be such a flower"]
   },
   "028.png": {
     "ko": ["이름 없는 들 꽃", "엄마와 딸처럼", "하나님의 사랑 가운데 있는 듯 다정한 꽃"],
-    "en": ["028 first description", "028 second line", "028 third line"]
+    "en": ["A nameless flower on an unknown hill", "a Mom and Daughter", "An affection which echo the love of God"]
   },
   "029.png": {
     "ko": ["아들과 대화하며...", "네 속에 어떤 마음이 있을까?", "하나님의 은혜가 가득 담기길 소원하며"],
-    "en": ["029 first description", "029 second line", "029 third line"]
+    "en": ["In conversation with my son...", "I wonder what you carry in your heart?", "May it fill and overflow with the Grace of God"]
   },
   "030.png": {
     "ko": ["뉴저지의 성탄 풍경", "화려한 성탄 장식 속에서 멋지게 서있는 하얀 나무", "함께 어울려 더웃 멋진 계절"],
-    "en": ["030 first description", "030 second line", "030 third line"]
+    "en": ["Scenes of Christmas at New Jersey", "A white tree stands tall admist colerful decorations", "A season made more beautiful by togetherness"]
   },
   "031.png": {
     "ko": ["쉿!", "새해 첫날 해돋이 보러가서 보이지 않는 태양에 실망했을 때", " 마음 속에 들린 말 쉿! 그리고 떠오른 해"],
-    "en": ["031 first description", "031 second line", "031 third line"]
+    "en": ["Shhhh!", "When I was disappointed I could not see the sun on the first sunrise of the year", "To hear in my heart Shhh! Look! The Sun has already risen."]
   },
   "032.png": {
     "ko": ["뉴저지 Flat Rock park에서", "숲 속 호수에 비친 나무 그림자", "하나님의 모습을 비취고 싶은 마음으로"],
-    "en": ["032 first description", "032 second line", "032 third line"]
+    "en": ["At Flat Rock Park in New Jersey", "Reflections of the trees on the forest lake", "Could I reflect you like this God?"]
   },
   "033.png": {
     "ko": ["해 맑은 가을 빛", "온 숲에 가득한 빛", "나의 삶의 가지가지 사이 주님의 빛이 가득하길"],
