@@ -129,82 +129,77 @@
   },
   "033.png": {
     "ko": ["해 맑은 가을 빛", "온 숲에 가득한 빛", "나의 삶의 가지가지 사이 주님의 빛이 가득하길"],
-    "en": ["033 first description", "033 second line", "033 third line"]
+    "en": ["The Brightness of the fall light", "Overflows the forest", "So may Christ's light do so with me"]
   },
   "034.png": {
     "ko": ["올랜도 사랑방", "학생들과 함께 살고 싶은 집", "젊은이들의 삶의 이야기가 가득한 곳"],
-    "en": ["034 first description", "034 second line", "034 third line"]
+    "en": ["A house of fellowship in Orlando", "to dwell in unity", "filling with each other's life stories"]
   },
-  "035.png": {
-    "ko": ["자작나무", "나무판 위에 처음 그려본 자작나무", "각자 서 있어도 모든 뿌리가 함쎄 서로를 세워 주는 나무들"],
-    "en": ["035 first description", "035 second line", "035 third line"]
-  },
-  "036.png": {
-    "ko": ["리트릿 하러 가는 길", "주님 만나러 가는 가슴 뛰는 길", "주님을 깊히 만나고 싶은 마음으로"],
-    "en": ["036 first description", "036 second line", "036 third line"]
-  },
-  "037.png": {
-    "ko": ["얼음 꽃", "요세미티 제러널 샤먼 나무있는 공원에서", "2월의 추위에 일찍 핀 꽃이 얼음 속에서 보석이 되었어요"],
-    "en": ["037 first description", "037 second line", "037 third line"]
-  },
-  "038.png": {
-    "ko": ["코로나 기간 첫 추석", "아무도 만날수 없는 그리움 속에서", "서로를 이어주는 다리를 그리워하며..."],
-    "en": ["038 first description", "038 second line", "038 third line"]
-  },
-  "039.png": {
-    "ko": ["숲 속의 집", "사랑하는 친구들과 가고 싶은 기도의 집", "언제나 기다려 주실 주님의 품으로 가고 싶은 마음"],
-    "en": ["039 first description", "039 second line", "039 third line"]
-  },
-  "040.png": {
-    "ko": ["기도의 집", "별이 쏟아지던 어느 밤 문득 뒷마당에 가득한 부추꽃처럼", " 온 밤을 하앟게 꽃처럼 기도하고픈 마음으로"],
-    "en": ["040 first description", "040 second line", "040 third line"]
-  },
-  "041.png": {
-    "ko": ["눈과 단풍", "녹지 않는 눈 덮힌 산", "그 아래 주님의 가을이 가득 임했어요"],
-    "en": ["041 first description", "041 second line", "041 third line"]
-  },
-  "042.png": {
-    "ko": ["042 첫 번째 설명", "042 두 번째 설명", "042 세 번째 설명"],
-    "en": ["042 first description", "042 second line", "042 third line"]
-  },
-  "043.png": {
-    "ko": ["어울림", "나무 판에 가득 칠한 물감", "칼로 긁자 숲의 나무들이 드러났어요"],
-    "en": ["043 first description", "043 second line", "043 third line"]
-  },
-  "044.png": {
-    "ko": ["나의 살던 고향은 꽃 피는 산골", "복숭아꽃 살구 꽃 아기 진달래", "강원도 원천의 어린 시절이 그리워서..."],
-    "en": ["044 first description", "044 second line", "044 third line"]
-  },
-  "045.png": {
-    "ko": ["고스모스", "그리움의 꽃", "고향 길 가 가득했던 꽃"],
-    "en": ["045 first description", "045 second line", "045 third line"]
-  },
-  "046.png": {
-    "ko": ["겨울", "타일 위에 그린 그림", "함께 힘을 내는 뿌리를 생각하며"],
-    "en": ["046 first description", "046 second line", "046 third line"]
-  },
-  "047.png": {
-    "ko": ["가을", "들판에 가득한 바람", "바람을 안고 노래하는 들 풀들"],
-    "en": ["047 first description", "047 second line", "047 third line"]
-  },
-  "048.png": {
-    "ko": ["여름", "상큼한 공기가 가득", "활짝 핀 꽃에 담긴 하나님 향기"],
-    "en": ["048 first description", "048 second line", "048 third line"]
-  },
-  "049.png": {
-    "ko": ["봄", "어둠과 겨울을 깨고 올라오는 생명의 기운", "누구도 막을 수 없는 하나님의 계절"],
-    "en": ["049 first description", "049 second line", "049 third line"]
-  },
-  "050.png": {
-    "ko": ["빈 질그릇들", "모든 이웃에게 그릇을 빌라", "빈 그릇을 빌되 조금 빌지 말고 (왕하4:1-7)"],
-    "en": ["050 first description", "050 second line", "050 third line"]
-  },
-  "051.png": {
-    "ko": ["빌려온 그릇들", "빈 그릇 마다 채워지는 하나님의 기름", "평생 빈 그릇되어 은혜를 사모하게 하소서"],
-    "en": ["051 first description", "051 second line", "051 third line"]
-  },
-  "052.png": {
-    "ko": ["가을 자작나무", "22년 수술 후에 감사한 마음을 담은 그림", "작은 빗자루로 물감을 찍어서 그린 그림"],
-    "en": ["052 first description", "052 second line", "052 third line"]
-  }
+"035.png": {
+  "ko": ["자작나무", "나무판 위에 처음 그려본 자작나무", "각자 서 있어도 모든 뿌리가 함께 서로를 세워 주는 나무들"],
+  "en": ["Birch Tree", "First time painting a wood on wooden canvas", "Though apart, the roots support each others unseen"]
+},
+"036.png": {
+  "ko": ["리트릿 하러 가는 길", "주님 만나러 가는 가슴 뛰는 길", "주님을 깊히 만나고 싶은 마음으로"],
+  "en": ["On the way to Retreat", "On the way to meet the Lord", "With great longing for intimacy with him"]
+},
+"037.png": {
+  "ko": ["얼음 꽃", "요세미티 제러널 샤먼 나무있는 공원에서", "2월의 추위에 일찍 핀 꽃이 얼음 속에서 보석이 되었어요"],
+  "en": ["Ice Flower", "Near General Sherman at Yosemite", "An early bloom caught by frost- in ice, a Jewel!"]
+},
+"038.png": {
+  "ko": ["코로나 기간 첫 추석", "아무도 만날수 없는 그리움 속에서", "서로를 이어주는 다리를 그리워하며..."],
+  "en": ["First Thanksgiving during Covid", "As I miss those who I cannot meet", "I dream of a bridge that would connect us all"]
+},
+"039.png": {
+  "ko": ["숲 속의 집", "사랑하는 친구들과 가고 싶은 기도의 집", "언제나 기다려 주실 주님의 품으로 가고 싶은 마음"],
+  "en": ["A house in the woods", "A house of prayer", "To invite myself towards the waiting arms of Jesus"]
+},
+"040.png": {
+  "ko": ["기도의 집", "별이 쏟아지던 어느 밤 문득 뒷마당에 가득한 부추꽃처럼", "온 밤을 하얗게 꽃처럼 기도하고픈 마음으로"],
+  "en": ["A house of Prayer", "As starlight showers down on my backyard", "May my prayer so light up all of the night"]
+},
+"041.png": {
+  "ko": ["눈과 단풍", "녹지 않는 눈 덮힌 산", "그 아래 주님의 가을이 가득 임했어요"],
+  "en": ["Snow and Fall", "Unmelting snow, ever snowcapped", "Beneath, the progression of the Lord’s Fall"]
+},
+"043.png": {
+  "ko": ["어울림", "나무 판에 가득 칠한 물감", "칼로 긁자 숲의 나무들이 드러났어요"],
+  "en": ["Harmony", "My wooden canvas fills with paint", "I carve the paint to see the trees"]
+},
+"044.png": {
+  "ko": ["나의 살던 고향은 꽃 피는 산골", "복숭아꽃 살구 꽃 아기 진달래", "강원도 원천의 어린 시절이 그리워서..."],
+  "en": ["My Hometown is a mountainous village", "A peach tree, apricots, flowers, a baby, azaleas", "Oh how I long for my childhood hometown"]
+},
+"045.png": {
+  "ko": ["고스모스", "그리움의 꽃", "고향 길 가 가득했던 꽃"],
+  "en": ["Cosmos", "The Flower of longing", "Its blooms line the path to my hometown"]
+},
+"046.png": {
+  "ko": ["겨울", "타일 위에 그린 그림", "함께 힘을 내는 뿌리를 생각하며"],
+  "en": ["Winter", "Painted on Tile", "Thinking of root-strength, powerful together"]
+},
+"047.png": {
+  "ko": ["가을", "들판에 가득한 바람", "바람을 안고 노래하는 들 풀들"],
+  "en": ["Fall", "A field full of Wind", "The grass hugs the wind as it sings in its arms"]
+},
+"048.png": {
+  "ko": ["여름", "상큼한 공기가 가득", "활짝 핀 꽃에 담긴 하나님 향기"],
+  "en": ["Summer", "A refreshing breeze fills the air", "The wide-open blooms carry the fragrance of God"]
+},
+"049.png": {
+  "ko": ["봄", "어둠과 겨울을 깨고 올라오는 생명의 기운", "누구도 막을 수 없는 하나님의 계절"],
+  "en": ["Spring", "The Spirit of life that overcomes the dark and the cold", "None can delay the season of Christ"]
+},
+"050.png": {
+  "ko": ["빈 질그릇들", "모든 이웃에게 그릇을 빌라", "빈 그릇을 빌되 조금 빌지 말고 (왕하4:1-7)"],
+  "en": ["Empty Vessels", "Borrow from every neighbor", "Don’t borrow just a few!"]
+},
+"051.png": {
+  "ko": ["빌려온 그릇들", "빈 그릇 마다 채워지는 하나님의 기름", "평생 빈 그릇되어 은혜를 사모하게 하소서"],
+  "en": ["Borrowed Vessels", "Every vessel filled to overflowing with God’s oil", "May I ever be an empty vessel, ever being filled!"]
+},
+"052.png": {
+  "ko": ["가을 자작나무", "22년 수술 후에 감사한 마음을 담은 그림", "작은 빗자루로 물감을 찍어서 그린 그림"],
+  "en": ["Fall Birch Trees", "Holds my grateful heart towards my surgery 22 years ago", "Like this paint holding onto my brush"]
 }
