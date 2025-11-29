@@ -202,5 +202,22 @@
 "052.png": {
   "ko": ["가을 자작나무", "22년 수술 후에 감사한 마음을 담은 그림", "작은 빗자루로 물감을 찍어서 그린 그림"],
   "en": ["Fall Birch Trees", "Holds my grateful heart towards my surgery 22 years ago", "Like this paint holding onto my brush"]
+},
+"042.png": {
+  "ko": "푸른 언덕 위의 바람|흔들리는 풀잎들|그 사이로 지나가는 시간",
+  "en": "Wind on the blue hill|Swaying blades of grass|Time passing through them"
+},
+"053.png": {
+  "ko": "빛나는 저녁노을|물결 위의 반짝임|하루의 마지막 인사",
+  "en": "Glowing evening sunset|Sparkle on the waves|Final greeting of the day"
+},
+"054.png": {
+  "ko": "고요한 숲속의 숨결|나무 사이의 속삭임|자연의 깊은 이야기",
+  "en": "Breath of a quiet forest|Whispers between trees|Nature’s deep story"
+},
+"055.png": {
+  "ko": "끝없는 길 위의 발자국|지나온 시간의 흔적|앞으로 나아가는 마음",
+  "en": "Footsteps on an endless path|Traces of time passed|Heart moving forward"
 }
+
 }
