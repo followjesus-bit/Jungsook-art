@@ -208,8 +208,8 @@
   "en": ["Wind on the blue hill", "Swaying blades of grass", "Time passing through them"]
 },
 "053.png": {
-  "ko": "푸른빛 물결 위에, “흔들리는 풀잎들” “흐르는 시간 속에서”",
-  "en": "[Waves on the blue hill]\n“Swaying blades of grass”\n“Time passing through them”"
+  "ko": ["푸른빛 물결 위에", "흔들리는 풀잎들", "흐르는 시간 속에서"],
+  "en": ["Waves on the blue hill", "Swaying blades of grass", "Time passing through them"]
 },
 "054.png": {
   "ko": ["고요한 숲속의 숨결", "나무 사이의 속삭임", "자연의 깊은 이야기"],
