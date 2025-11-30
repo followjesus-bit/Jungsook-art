@@ -1,95 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kellography Photobook</title>
-  <style>
-    body { font-family: sans-serif; text-align: center; padding: 1em; }
-    img { max-width: 100%; height: auto; cursor: pointer; }
-    .nav { margin: 1em; }
-    .section { margin-top: 2em; }
-  </style>
-</head>
-<body>
-  <h1>Kellography Photobook</h1>
-  <img id="photo" src="" alt="Photobook Image" />
-  <p id="caption">Loading...</p>
-  <div class="nav">
-    <button onclick="prevPhoto()">Previous</button>
-    <span id="index">1 / 58</span>
-    <button onclick="nextPhoto()">Next</button>
-  </div>
+<script>
+  const photos = [];
+  for (let i = 1; i <= 58; i++) {
+    const num = String(i).padStart(3, '0');
+    photos.push({ src: `images/${num}.png`, id: `${num}.png` });
+  }
 
-  <div class="section">
-    <h2>📖 View Catalog</h2>
-    <a href="Art%20gallery%20catalog.pdf" target="_blank">Open Catalog (PDF)</a>
-  </div>
+  let currentIndex = 0;
+  let captions = {};
 
-  <div class="section">
-    <h2>📱 Scan to View Online</h2>
-    <img src="qr-code.png" alt="QR Code to Photobook" />
-  </div>
-
-  <div class="section">
-    <h2>📝 Order Photobook</h2>
-    <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-  </div>
-
-  <script>
-    const photos = [];
-    for (let i = 1; i <= 58; i++) {
-      const num = String(i).padStart(3, '0');
-      photos.push({ src: `images/${num}.png`, id: `${num}.png` });
-    }
-
-    let currentIndex = 0;
-    let captions = {};
-
-    fetch('comments.json')
-      .then(response => response.json())
-      .then(data => {
-        captions = Object.fromEntries(data.map(entry => [entry.file, entry]));
-        updateViewer();
-      })
-      .catch(error => {
-        console.error("Failed to load captions:", error);
-        updateViewer(); // fallback to image-only
-      });
-
-    function updateViewer() {
-      const photo = photos[currentIndex];
-      const img = document.getElementById("photo");
-      img.src = photo.src;
-      document.getElementById("index").innerText = `${currentIndex + 1} / ${photos.length}`;
-
-      const entry = captions[photo.id];
-      document.getElementById("caption").innerText = entry?.ko?.join(' / ') || '⚠️ No caption available.';
-    }
-
-    function prevPhoto() {
-      currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+  fetch('comments.json')
+    .then(response => response.json())
+    .then(data => {
+      captions = Object.fromEntries(data.map(entry => [entry.file, entry]));
       updateViewer();
-    }
-
-    function nextPhoto() {
-      currentIndex = (currentIndex + 1) % photos.length;
-      updateViewer();
-    }
-
-    document.getElementById("photo").onerror = function() {
-      console.warn("Image failed to load:", photos[currentIndex].src);
-      nextPhoto();
-    };
-
-    document.getElementById("photo").addEventListener('click', (event) => {
-      const midpoint = event.target.clientWidth / 2;
-      if (event.offsetX < midpoint) {
-        prevPhoto();
-      } else {
-        nextPhoto();
-      }
+    })
+    .catch(error => {
+      console.error("Failed to load captions:", error);
+      updateViewer(); // fallback to image-only
     });
-  </script>
-</body>
-</html>
+
+  function updateViewer() {
+    const photo = photos[currentIndex];
+    const img = document.getElementById("photo");
+    img.src = photo.src;
+    document.getElementById("index").innerText = `${currentIndex + 1} / ${photos.length}`;
+
+    const entry = captions[photo.id];
+    document.getElementById("caption").innerText = entry?.ko?.join(' / ') || '⚠️ No caption available.';
+  }
+
+  function prevPhoto() {
+    currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+    updateViewer();
+  }
+
+  function nextPhoto() {
+    currentIndex = (currentIndex + 1) % photos.length;
+    updateViewer();
+  }
+
+  document.getElementById("photo").onerror = function() {
+    console.warn("Image failed to load:", photos[currentIndex].src);
+    nextPhoto();
+  };
+
+  document.getElementById("photo").addEventListener('click', (event) => {
+    const midpoint = event.target.clientWidth / 2;
+    if (event.offsetX < midpoint) {
+      prevPhoto();
+    } else {
+      nextPhoto();
+    }
+  });
+</script>
