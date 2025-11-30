@@ -9,7 +9,6 @@
     img { max-width: 100%; height: auto; cursor: pointer; }
     .nav { margin: 1em; }
     .section { margin-top: 2em; }
-    #lang-toggle { margin-top: 1em; }
   </style>
 </head>
 <body>
@@ -21,7 +20,6 @@
     <span id="index">1 / 58</span>
     <button onclick="nextPhoto()">Next</button>
   </div>
-  <button id="lang-toggle">Switch to English</button>
 
   <div class="section">
     <h2>📖 View Catalog</h2>
@@ -46,7 +44,6 @@
     }
 
     let currentIndex = 0;
-    let currentLang = 'ko';
     let captions = {};
 
     fetch('comments.json')
@@ -67,11 +64,7 @@
       document.getElementById("index").innerText = `${currentIndex + 1} / ${photos.length}`;
 
       const entry = captions[photo.id];
-      if (entry && entry[currentLang]) {
-        document.getElementById("caption").innerText = entry[currentLang].join(' / ');
-      } else {
-        document.getElementById("caption").innerText = '⚠️ No caption available.';
-      }
+      document.getElementById("caption").innerText = entry?.ko?.join(' / ') || '⚠️ No caption available.';
     }
 
     function prevPhoto() {
@@ -96,13 +89,6 @@
       } else {
         nextPhoto();
       }
-    });
-
-    document.getElementById("lang-toggle").addEventListener('click', () => {
-      currentLang = currentLang === 'ko' ? 'en' : 'ko';
-      document.getElementById("lang-toggle").innerText =
-        currentLang === 'ko' ? 'Switch to English' : '한국어로 보기';
-      updateViewer();
     });
   </script>
 </body>
