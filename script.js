@@ -1,38 +1,48 @@
 let currentIndex = 0;
-let currentLang = 'en';
-let comments = {};
+let currentLang = "en";
+let descriptions = {};
 let imageNames = [];
 
-fetch('comments.json')
-  .then(r => r.json())
+// Load captions dynamically
+fetch("./comments.json?v=" + Date.now(), { cache: "no-store" })
+  .then(res => res.json())
   .then(data => {
-    comments = data;
-    imageNames = Object.keys(comments).sort();
-    console.log("Loaded imageNames:", imageNames); // ✅ Debug log
-    updateImage();
+    descriptions = data;
+
+    // Build imageNames list directly from JSON keys
+    imageNames = Object.keys(descriptions).sort();
+
+    updateImage(); // render first image after captions load
   })
-  .catch(err => console.error('Error loading captions:', err));
+  .catch(err => console.error("Failed to load comments.json:", err));
 
 function updateImage() {
-  const imageName = imageNames[currentIndex];
-  const imgEl = document.getElementById("main-image");
-  const pageEl = document.getElementById("page-number");
-  const captionEl = document.getElementById("caption");
+  if (imageNames.length === 0) return;
 
-  imgEl.src = `images/${imageName}`;
-  pageEl.textContent = `${currentIndex + 1} / ${imageNames.length}`;
+  const photoEl = document.getElementById("photo");
+  const filename = imageNames[currentIndex];
 
-  const comment = comments[imageName];
-  if (comment && comment[currentLang]) {
-    captionEl.innerHTML = comment[currentLang].map(line => `<div>${line}</div>`).join("");
-  } else {
-    captionEl.textContent = "";
-  }
-}
+  photoEl.style.opacity = 0;
 
-function nextImage() {
-  currentIndex = (currentIndex + 1) % imageNames.length;
-  updateImage();
+  setTimeout(() => {
+    photoEl.src = "./images/" + filename;
+
+    const entry = descriptions[filename];
+    if (entry && entry[currentLang]) {
+      document.getElementById("desc-line1").textContent = entry[currentLang][0] || "";
+      document.getElementById("desc-line2").textContent = entry[currentLang][1] || "";
+      document.getElementById("desc-line3").textContent = entry[currentLang][2] || "";
+    } else {
+      document.getElementById("desc-line1").textContent = "";
+      document.getElementById("desc-line2").textContent = "";
+      document.getElementById("desc-line3").textContent = "";
+    }
+
+    document.getElementById("page-number").textContent =
+      `${currentIndex + 1} / ${imageNames.length}`;
+
+    photoEl.style.opacity = 1;
+  }, 300);
 }
 
 function prevImage() {
@@ -40,49 +50,53 @@ function prevImage() {
   updateImage();
 }
 
-function toggleLang() {
-  currentLang = currentLang === 'en' ? 'ko' : 'en';
-  document.getElementById('lang-toggle').textContent = currentLang === 'en' ? 'En' : '한글';
+function nextImage() {
+  currentIndex = (currentIndex + 1) % imageNames.length;
   updateImage();
 }
 
-// ✅ Additive interactions (safe and scoped)
-document.addEventListener('DOMContentLoaded', () => {
-  const img = document.getElementById('main-image');
-  if (!img) {
-    console.error("main-image not found");
-    return;
-  }
+function toggleLang() {
+  currentLang = currentLang === "en" ? "ko" : "en";
+  document.getElementById("lang-toggle").textContent =
+    currentLang === "en" ? "En" : "한글";
+  updateImage();
+}
 
-  // Touch-to-move: tap left/right side of image
-  img.addEventListener('click', (e) => {
-    const midpoint = img.clientWidth / 2;
-    if (e.offsetX < midpoint) {
-      prevImage();
-    } else {
-      nextImage();
-    }
+function initImageGestures() {
+  const photoEl = document.getElementById("photo");
+  let touchStartX = null, touchStartY = null;
+
+  photoEl.addEventListener("click", (e) => {
+    const rect = photoEl.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    if (x < rect.width / 2) prevImage();
+    else nextImage();
   });
 
-  // Swipe gesture
-  let startX = 0;
-  img.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
+  photoEl.addEventListener("touchstart", (e) => {
+    const t = e.changedTouches[0];
+    touchStartX = t.clientX;
+    touchStartY = t.clientY;
   }, { passive: true });
 
-  img.addEventListener('touchend', (e) => {
-    const endX = e.changedTouches[0].clientX;
-    const dx = endX - startX;
-    if (Math.abs(dx) > 30) {
+  photoEl.addEventListener("touchend", (e) => {
+    const t = e.changedTouches[0];
+    if (touchStartX === null) return;
+    const dx = t.clientX - touchStartX;
+    const dy = t.clientY - touchStartY;
+    if (Math.abs(dx) > 50 && Math.abs(dy) <= Math.abs(dx) * 0.5) {
       if (dx < 0) nextImage();
       else prevImage();
     }
+    touchStartX = null; touchStartY = null;
   }, { passive: true });
 
-  // Keyboard navigation
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') nextImage();
-    else if (e.key === 'ArrowLeft') prevImage();
-    else if (e.key.toLowerCase() === 'l') toggleLang();
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") prevImage();
+    if (e.key === "ArrowRight") nextImage();
   });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initImageGestures();
 });
