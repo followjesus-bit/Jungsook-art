@@ -1,136 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kellography Photobook</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-      background: #f9f9f9;
-    }
-    header {
-      background: #222;
-      color: #fff;
-      padding: 1em;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-    .viewer {
-      margin: 2em auto;
-      max-width: 90%;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      border: 2px solid #ccc;
-    }
-    .caption {
-      margin-top: 1em;
-      font-size: 1.2em;
-      font-weight: bold;
-      line-height: 1.4;
-    }
-    .nav {
-      margin: 1.5em;
-    }
-    .nav button {
-      padding: 0.5em 1em;
-      font-size: 1em;
-      margin: 0 0.5em;
-      cursor: pointer;
-    }
-    #catalog-link, #qr, #order {
-      margin: 2em 0;
-      padding: 1em;
-    }
-    #order {
-      background: #fff;
-      border: 1px solid #ccc;
-    }
-    #order h2 {
-      margin-bottom: 1em;
-    }
-    iframe {
-      width: 100%;
-      max-width: 700px;
-      height: 800px;
-      border: none;
-    }
-    a {
-      color: #0066cc;
-      text-decoration: none;
-      font-size: 1.2em;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>사슴의 노래 Songs of the Hind</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    Kellography Photobook
-  </header>
+  <div class="title">
+    <h1>사슴의 노래</h1>
+    <h2>Songs of the Hind</h2>
+  </div>
 
-  <!-- Photo Viewer -->
   <div class="viewer">
-    <img id="photo" src="images/001.jpg" alt="Photobook Image">
-    <div class="caption" id="caption">Caption for image 001</div>
-    <div class="nav">
-      <button onclick="prevPhoto()">Previous</button>
-      <span id="index">1 / 12</span>
-      <button onclick="nextPhoto()">Next</button>
+    <div class="nav-bar">
+      <button id="lang-toggle" onclick="toggleLang()">En</button>
+      <span id="page-number">1 / 52</span>
+    </div>
+
+    <img id="photo" alt="Artwork" />
+
+    <div class="desc">
+      <p id="desc-line1"></p>
+      <p id="desc-line2"></p>
+      <p id="desc-line3"></p>
+    </div>
+
+    <div class="arrow-row">
+      <button id="left-arrow" onclick="prevImage()">⬅️ 이전</button>
+      <button id="right-arrow" onclick="nextImage()">➡️ 다음</button>
     </div>
   </div>
 
-  <!-- Catalog Link -->
-  <section id="catalog-link">
-    <h2>View Catalog</h2>
-    <p>
-      <a href="Art gallery catalog.pdf" target="_blank">📖 Open Catalog (PDF)</a>
-    </p>
-  </section>
-
-  <!-- QR Code Section -->
-  <section id="qr">
-    <h2>Scan to View Online</h2>
-    <img src="qr-code.png" alt="QR Code to Photobook">
-  </section>
-
-  <!-- Order Form Section -->
-  <section id="order">
-    <h2>Order Photobook</h2>
-    <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true">Loading…</iframe>
-  </section>
-
-  <script>
-    const photos = [
-      { src: "images/001.jpg", caption: "Caption for image 001" },
-      { src: "images/002.jpg", caption: "Caption for image 002" },
-      { src: "images/003.jpg", caption: "Caption for image 003" }
-      // Add more images here
-    ];
-    let currentIndex = 0;
-
-    function updateViewer() {
-      document.getElementById("photo").src = photos[currentIndex].src;
-      document.getElementById("caption").innerText = photos[currentIndex].caption;
-      document.getElementById("index").innerText = (currentIndex + 1) + " / " + photos.length;
-    }
-
-    function prevPhoto() {
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateViewer();
-      }
-    }
-
-    function nextPhoto() {
-      if (currentIndex < photos.length - 1) {
-        currentIndex++;
-        updateViewer();
-      }
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
