@@ -2,31 +2,63 @@
   const photos = [];
   for (let i = 1; i <= 58; i++) {
     const num = String(i).padStart(3, '0');
-    photos.push({ src: `images/${num}.png`, id: `${num}.png` });
+    photos.push({ src: `images/${num}.png`, id: `${num}` }); // store id without .png
   }
 
   let currentIndex = 0;
-  let captions = {};
+  let captions = {}; // normalized map: keys are "001" (no extension)
 
-  fetch('comments.json')
-    .then(response => response.json())
+  // Normalize incoming JSON into captions["001"] = { ko: [...], en: [...] }
+  function normalizeCaptions(data) {
+    const map = {};
+    if (Array.isArray(data)) {
+      // entries like { file: "001.png", ko: [...], en: [...] }
+      for (const entry of data) {
+        const file = entry.file || entry.id || '';
+        const key = String(file).replace('.png', '').padStart(3, '0');
+        map[key] = { ko: entry.ko || [], en: entry.en || [] };
+      }
+    } else if (data && typeof data === 'object') {
+      // object like { "001": { ko: [...], en: [...] }, "002.png": { ... } }
+      for (const k of Object.keys(data)) {
+        const key = String(k).replace('.png', '').padStart(3, '0');
+        const entry = data[k] || {};
+        map[key] = { ko: entry.ko || [], en: entry.en || [] };
+      }
+    }
+    return map;
+  }
+
+  // Fetch captions (use relative path for GitHub Pages subdirectory)
+  fetch('./comments.json')
+    .then(r => r.json())
     .then(data => {
-      captions = Object.fromEntries(data.map(entry => [entry.file, entry]));
+      captions = normalizeCaptions(data);
       updateViewer();
     })
-    .catch(error => {
-      console.error("Failed to load captions:", error);
-      updateViewer(); // fallback to image-only
+    .catch(err => {
+      console.error('Failed to load captions:', err);
+      updateViewer(); // show images without captions
     });
 
-  function updateViewer() {
+  function updateViewer(lang = 'ko') {
     const photo = photos[currentIndex];
-    const img = document.getElementById("photo");
+    const img = document.getElementById('photo');
     img.src = photo.src;
-    document.getElementById("index").innerText = `${currentIndex + 1} / ${photos.length}`;
+
+    const indexEl = document.getElementById('index');
+    if (indexEl) indexEl.innerText = `${currentIndex + 1} / ${photos.length}`;
+
+    const capEl = document.getElementById('caption');
+    if (!capEl) return;
 
     const entry = captions[photo.id];
-    document.getElementById("caption").innerText = entry?.ko?.join(' / ') || '⚠️ No caption available.';
+    if (entry && Array.isArray(entry[lang]) && entry[lang].length) {
+      capEl.innerText = entry[lang].join(' / ');
+    } else {
+      capEl.innerText = '';
+      console.warn('No caption for', photo.id, 'lang:', lang);
+    }
   }
 
   function prevPhoto() {
@@ -39,12 +71,12 @@
     updateViewer();
   }
 
-  document.getElementById("photo").onerror = function() {
-    console.warn("Image failed to load:", photos[currentIndex].src);
+  document.getElementById('photo').onerror = function () {
+    console.warn('Image failed to load:', photos[currentIndex].src);
     nextPhoto();
   };
 
-  document.getElementById("photo").addEventListener('click', (event) => {
+  document.getElementById('photo').addEventListener('click', (event) => {
     const midpoint = event.target.clientWidth / 2;
     if (event.offsetX < midpoint) {
       prevPhoto();
@@ -52,4 +84,11 @@
       nextPhoto();
     }
   });
+
+  // Initialize after DOM ready (in case script moves)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateViewer);
+  } else {
+    updateViewer();
+  }
 </script>
