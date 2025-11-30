@@ -1,31 +1,32 @@
+// Your existing logic (preserved)
 let currentIndex = 0;
 let currentLang = 'en';
 let comments = {};
 let imageNames = [];
 
-// Load captions from comments.json
 fetch('comments.json')
-  .then(response => response.json())
+  .then(r => r.json())
   .then(data => {
     comments = data;
     imageNames = Object.keys(comments).sort();
     updateImage();
   })
-  .catch(error => console.error("Error loading captions:", error));
+  .catch(err => console.error('Error loading captions:', err));
 
 function updateImage() {
   const imageName = imageNames[currentIndex];
-  document.getElementById("main-image").src = `images/${imageName}`;
-  document.getElementById("page-number").textContent = `${currentIndex + 1} / ${imageNames.length}`;
+  const imgEl = document.getElementById("main-image");
+  const pageEl = document.getElementById("page-number");
+  const captionEl = document.getElementById("caption");
+
+  imgEl.src = `images/${imageName}`;
+  pageEl.textContent = `${currentIndex + 1} / ${imageNames.length}`;
 
   const comment = comments[imageName];
-  if (comment) {
-    // Render each caption line separately
-    document.getElementById("caption").innerHTML = comment[currentLang]
-      .map(line => `<div>${line}</div>`)
-      .join("");
+  if (comment && comment[currentLang]) {
+    captionEl.innerHTML = comment[currentLang].map(line => `<div>${line}</div>`).join("");
   } else {
-    document.getElementById("caption").textContent = "";
+    captionEl.textContent = "";
   }
 }
 
@@ -41,17 +42,45 @@ function prevImage() {
 
 function toggleLang() {
   currentLang = currentLang === 'en' ? 'ko' : 'en';
-  document.getElementById('lang-toggle').textContent = currentLang === 'en' ? 'En' : '한글';
+  const btn = document.getElementById('lang-toggle');
+  btn.textContent = currentLang === 'en' ? 'En' : '한글';
   updateImage();
 }
 
-// Keyboard navigation
-document.addEventListener('keydown', function(event) {
-  if (event.key === 'ArrowRight') {
-    nextImage();
-  } else if (event.key === 'ArrowLeft') {
-    prevImage();
-  } else if (event.key.toLowerCase() === 'l') {
-    toggleLang();
+// ✅ Additive interaction hooks (do not modify existing functions)
+document.addEventListener('DOMContentLoaded', () => {
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') nextImage();
+    else if (e.key === 'ArrowLeft') prevImage();
+    else if (e.key.toLowerCase() === 'l') toggleLang();
+  });
+
+  // Touch swipe on the main image
+  const img = document.getElementById('main-image');
+  if (img) {
+    let startX = 0;
+    img.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    }, { passive: true });
+
+    img.addEventListener('touchend', (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const dx = endX - startX;
+      if (Math.abs(dx) > 30) {
+        if (dx < 0) nextImage();
+        else prevImage();
+      }
+    }, { passive: true });
+
+    // Tap or click to move
+    img.addEventListener('click', (e) => {
+      const midpoint = img.clientWidth / 2;
+      if (e.offsetX < midpoint) {
+        prevImage();
+      } else {
+        nextImage();
+      }
+    });
   }
 });
