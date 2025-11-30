@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kellography Photobook</title>
   <style>
     body {
@@ -74,11 +74,11 @@
 
   <!-- Photo Viewer -->
   <div class="viewer">
-    <img id="photo" src="images/001.jpg" alt="Photobook Image">
+    <img id="photo" src="images/001.jpg" alt="Photobook Image" />
     <div class="caption" id="caption">Caption for image 001</div>
     <div class="nav">
       <button onclick="prevPhoto()">Previous</button>
-      <span id="index">1 / 12</span>
+      <span id="index">1 / 55</span>
       <button onclick="nextPhoto()">Next</button>
     </div>
   </div>
@@ -87,14 +87,14 @@
   <section id="catalog-link">
     <h2>View Catalog</h2>
     <p>
-      <a href="Art gallery catalog.pdf" target="_blank">📖 Open Catalog (PDF)</a>
+      <a href="Art%20gallery%20catalog.pdf" target="_blank">📖 Open Catalog (PDF)</a>
     </p>
   </section>
 
   <!-- QR Code Section -->
   <section id="qr">
     <h2>Scan to View Online</h2>
-    <img src="qr-code.png" alt="QR Code to Photobook">
+    <img src="qr-code.png" alt="QR Code to Photobook" />
   </section>
 
   <!-- Order Form Section -->
@@ -108,7 +108,7 @@
       { src: "images/001.jpg", caption: "Caption for image 001" },
       { src: "images/002.jpg", caption: "Caption for image 002" },
       { src: "images/003.jpg", caption: "Caption for image 003" }
-      // Add more images here
+      // Add all 55 entries here
     ];
     let currentIndex = 0;
 
@@ -131,6 +131,8 @@
         updateViewer();
       }
     }
+
+    updateViewer();
   </script>
 </body>
 </html>
