@@ -3,54 +3,112 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>사슴의 노래 – JungSook</title>
-  <link rel="stylesheet" href="style.css" />
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>사슴의 노래 – JungSook / The Songs of Hind</title>
   <style>
     body {
       font-family: sans-serif;
-      text-align: center;
-      background-color: #fdfdfd;
       margin: 0;
-      padding: 20px;
+      background-color: #fdfdfd;
+    }
+    h1 {
+      text-align: center;
+      padding: 16px;
     }
     #main-image {
-      max-width: 90%;
-      height: auto;
-      margin-bottom: 20px;
+      display: block;
+      margin: 0 auto;
+      max-width: 90vw;
+      max-height: 70vh;
+      object-fit: contain;
     }
     #caption {
-      font-size: 1.2em;
+      margin: 20px auto;
+      max-width: 900px;
+      font-size: 1.1rem;
       line-height: 1.6;
-      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* Positioning controls */
+    #lang-toggle {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      padding: 8px 14px;
+      font-size: 1rem;
+      border: 1px solid #444;
+      background: #fff;
+      cursor: pointer;
+      z-index: 1000;
     }
     #page-number {
-      font-weight: bold;
-      margin-bottom: 10px;
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.85);
+      padding: 6px 10px;
+      border-radius: 6px;
+      z-index: 1000;
     }
-    #lang-toggle {
-      padding: 8px 16px;
-      font-size: 1em;
+    #prev, #next {
+      position: fixed;
+      bottom: 12px;
+      font-size: 2rem;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid #444;
+      border-radius: 8px;
       cursor: pointer;
+      padding: 8px 12px;
+      z-index: 1000;
     }
+    #prev { left: 12px; }
+    #next { right: 12px; }
   </style>
 </head>
 <body>
   <h1>사슴의 노래 – JungSook / The Songs of Hind</h1>
 
-  <div id="page-number"></div>
+  <!-- Controls -->
+  <button id="lang-toggle" onclick="toggleLang()">En</button>
+  <span id="page-number"></span>
+  <button id="prev" onclick="prevImage()">⟨</button>
+  <button id="next" onclick="nextImage()">⟩</button>
 
+  <!-- Viewer -->
   <img id="main-image" src="" alt="Artwork" />
-
   <div id="caption"></div>
 
-  <button id="lang-toggle" onclick="toggleLang()">En</button>
-
   <script src="script.js"></script>
+  <script>
+    // Non-invasive interaction hooks (only call existing functions)
+    document.addEventListener('DOMContentLoaded', () => {
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') nextImage();
+        else if (e.key === 'ArrowLeft') prevImage();
+        else if (e.key.toLowerCase() === 'l') toggleLang();
+      });
+
+      // Touch swipe on the main image
+      const img = document.getElementById('main-image');
+      if (img) {
+        let startX = 0;
+        img.addEventListener('touchstart', (e) => {
+          startX = e.touches[0].clientX;
+        }, { passive: true });
+
+        img.addEventListener('touchend', (e) => {
+          const endX = e.changedTouches[0].clientX;
+          const dx = endX - startX;
+          if (Math.abs(dx) > 30) {
+            if (dx < 0) nextImage();
+            else prevImage();
+          }
+        }, { passive: true });
+      }
+    });
+  </script>
 </body>
 </html>
