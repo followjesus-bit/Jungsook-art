@@ -1,6 +1,6 @@
-// Build photo array dynamically for 55 images
+// Build photo array dynamically for 58 images
 const photos = [];
-for (let i = 1; i <= 55; i++) {
+for (let i = 1; i <= 58; i++) {
   const num = String(i).padStart(3, '0'); // 001, 002, ...
   photos.push({
     src: `images/${num}.jpg`,
@@ -10,7 +10,6 @@ for (let i = 1; i <= 55; i++) {
 
 let currentIndex = 0;
 
-// Update viewer with current photo
 function updateViewer() {
   const photo = photos[currentIndex];
   document.getElementById("photo").src = photo.src;
@@ -18,7 +17,6 @@ function updateViewer() {
   document.getElementById("index").innerText = `${currentIndex + 1} / ${photos.length}`;
 }
 
-// Navigation functions
 function prevPhoto() {
   if (currentIndex > 0) {
     currentIndex--;
@@ -33,5 +31,4 @@ function nextPhoto() {
   }
 }
 
-// Initialize viewer
 updateViewer();
