@@ -2,120 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kellography Photobook</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-      background: #f9f9f9;
-    }
-    header {
-      background: #222;
-      color: #fff;
-      padding: 1em;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-    .viewer {
-      margin: 2em auto;
-      max-width: 90%;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      border: 2px solid #ccc;
-    }
-    .caption {
-      margin-top: 1em;
-      font-size: 1.2em;
-      font-weight: bold;
-      line-height: 1.4;
-    }
-    .nav {
-      margin: 1.5em;
-    }
-    .nav button {
-      padding: 0.5em 1em;
-      font-size: 1em;
-      margin: 0 0.5em;
-      cursor: pointer;
-    }
-    #catalog-link, #qr, #order {
-      margin: 2em 0;
-      padding: 1em;
-    }
-    #order {
-      background: #fff;
-      border: 1px solid #ccc;
-    }
-    #order h2 {
-      margin-bottom: 1em;
-    }
-    iframe {
-      width: 100%;
-      max-width: 700px;
-      height: 800px;
-      border: none;
-    }
-    a {
-      color: #0066cc;
-      text-decoration: none;
-      font-size: 1.2em;
-    }
+    body { font-family: sans-serif; text-align: center; padding: 1em; }
+    img { max-width: 100%; height: auto; }
+    .nav { margin: 1em; }
+    .section { margin-top: 2em; }
   </style>
 </head>
 <body>
-  <header>
-    Kellography Photobook
-  </header>
-
-  <!-- Photo Viewer -->
-  <div class="viewer">
-    <img id="photo" src="images/001.jpg" alt="Photobook Image" />
-    <div class="caption" id="caption">Caption for image 001</div>
-    <div class="nav">
-      <button onclick="prevPhoto()">Previous</button>
-      <span id="index">1 / 55</span>
-      <button onclick="nextPhoto()">Next</button>
-    </div>
+  <h1>Kellography Photobook</h1>
+  <img id="photo" src="" alt="Photobook Image" />
+  <p id="caption">Loading...</p>
+  <div class="nav">
+    <button onclick="prevPhoto()">Previous</button>
+    <span id="index">1 / 58</span>
+    <button onclick="nextPhoto()">Next</button>
   </div>
 
-  <!-- Catalog Link -->
-  <section id="catalog-link">
-    <h2>View Catalog</h2>
-    <p>
-      <a href="Art%20gallery%20catalog.pdf" target="_blank">📖 Open Catalog (PDF)</a>
-    </p>
-  </section>
+  <div class="section">
+    <h2>📖 View Catalog</h2>
+    <a href="Art%20gallery%20catalog.pdf" target="_blank">Open Catalog (PDF)</a>
+  </div>
 
-  <!-- QR Code Section -->
-  <section id="qr">
-    <h2>Scan to View Online</h2>
+  <div class="section">
+    <h2>📱 Scan to View Online</h2>
     <img src="qr-code.png" alt="QR Code to Photobook" />
-  </section>
+  </div>
 
-  <!-- Order Form Section -->
-  <section id="order">
-    <h2>Order Photobook</h2>
-    <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true">Loading…</iframe>
-  </section>
+  <div class="section">
+    <h2>📝 Order Photobook</h2>
+    <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+  </div>
 
   <script>
-    const photos = [
-      { src: "images/001.jpg", caption: "Caption for image 001" },
-      { src: "images/002.jpg", caption: "Caption for image 002" },
-      { src: "images/003.jpg", caption: "Caption for image 003" }
-      // Add all 55 entries here
-    ];
+    const photos = [];
+    for (let i = 1; i <= 58; i++) {
+      const num = String(i).padStart(3, '0');
+      photos.push({
+        src: `images/${num}.png`,
+        caption: `Caption for image ${num}`
+      });
+    }
+
     let currentIndex = 0;
 
     function updateViewer() {
-      document.getElementById("photo").src = photos[currentIndex].src;
-      document.getElementById("caption").innerText = photos[currentIndex].caption;
-      document.getElementById("index").innerText = (currentIndex + 1) + " / " + photos.length;
+      const photo = photos[currentIndex];
+      document.getElementById("photo").src = photo.src;
+      document.getElementById("caption").innerText = photo.caption;
+      document.getElementById("index").innerText = `${currentIndex + 1} / ${photos.length}`;
     }
 
     function prevPhoto() {
