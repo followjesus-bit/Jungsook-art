@@ -3,81 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kellography Photobook</title>
+  <title>사슴의 노래 – JungSook</title>
+  <link rel="stylesheet" href="style.css" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>사슴의 노래 – JungSook / The Songs of Hind</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 1em; }
-    img { max-width: 100%; height: auto; cursor: pointer; }
-    .nav { margin: 1em; }
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background-color: #fdfdfd;
+      margin: 0;
+      padding: 20px;
+    }
+    #main-image {
+      max-width: 90%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+    #caption {
+      font-size: 1.2em;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    #page-number {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    #lang-toggle {
+      padding: 8px 16px;
+      font-size: 1em;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <h1>Kellography Photobook</h1>
-  <img id="photo" src="" alt="Photobook Image" />
-  <p id="caption">Loading...</p>
-  <div class="nav">
-    <button onclick="prevPhoto()">Previous</button>
-    <span id="index">1 / 58</span>
-    <button onclick="nextPhoto()">Next</button>
-  </div>
+  <h1>사슴의 노래 – JungSook / The Songs of Hind</h1>
 
-  <script>
-    const photos = [];
-    for (let i = 1; i <= 58; i++) {
-      const num = String(i).padStart(3, '0');
-      photos.push({ src: `images/${num}.png`, id: `${num}.png` });
-    }
+  <div id="page-number"></div>
 
-    let currentIndex = 0;
-    let captions = {};
-    let currentLang = 'en'; // ✅ English by default
+  <img id="main-image" src="" alt="Artwork" />
 
-    fetch('comments.json')
-      .then(response => response.json())
-      .then(data => {
-        captions = Object.fromEntries(data.map(entry => [entry.file, entry]));
-        updateViewer();
-      })
-      .catch(error => {
-        console.error("Failed to load captions:", error);
-        updateViewer(); // fallback to image-only
-      });
+  <div id="caption"></div>
 
-    function updateViewer() {
-      const photo = photos[currentIndex];
-      const img = document.getElementById("photo");
-      img.src = photo.src;
-      document.getElementById("index").innerText = `${currentIndex + 1} / ${photos.length}`;
+  <button id="lang-toggle" onclick="toggleLang()">En</button>
 
-      const entry = captions[photo.id];
-      document.getElementById("caption").innerText =
-        entry?.[currentLang]?.join(' / ') || '⚠️ No caption available.';
-    }
-
-    function prevPhoto() {
-      currentIndex = (currentIndex - 1 + photos.length) % photos.length;
-      updateViewer();
-    }
-
-    function nextPhoto() {
-      currentIndex = (currentIndex + 1) % photos.length;
-      updateViewer();
-    }
-
-    document.getElementById("photo").onerror = function() {
-      console.warn("Image failed to load:", photos[currentIndex].src);
-      nextPhoto();
-    };
-
-    document.getElementById("photo").addEventListener('click', (event) => {
-      const midpoint = event.target.clientWidth / 2;
-      if (event.offsetX < midpoint) {
-        prevPhoto();
-      } else {
-        nextPhoto();
-      }
-    });
-
-    updateViewer();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
