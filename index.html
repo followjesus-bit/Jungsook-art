@@ -1,94 +1,83 @@
-<script>
-  const photos = [];
-  for (let i = 1; i <= 58; i++) {
-    const num = String(i).padStart(3, '0');
-    photos.push({ src: `images/${num}.png`, id: `${num}` }); // store id without .png
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kellography Photobook</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 1em; }
+    img { max-width: 100%; height: auto; cursor: pointer; }
+    .nav { margin: 1em; }
+  </style>
+</head>
+<body>
+  <h1>Kellography Photobook</h1>
+  <img id="photo" src="" alt="Photobook Image" />
+  <p id="caption">Loading...</p>
+  <div class="nav">
+    <button onclick="prevPhoto()">Previous</button>
+    <span id="index">1 / 58</span>
+    <button onclick="nextPhoto()">Next</button>
+  </div>
 
-  let currentIndex = 0;
-  let captions = {}; // normalized map: keys are "001" (no extension)
-
-  // Normalize incoming JSON into captions["001"] = { ko: [...], en: [...] }
-  function normalizeCaptions(data) {
-    const map = {};
-    if (Array.isArray(data)) {
-      // entries like { file: "001.png", ko: [...], en: [...] }
-      for (const entry of data) {
-        const file = entry.file || entry.id || '';
-        const key = String(file).replace('.png', '').padStart(3, '0');
-        map[key] = { ko: entry.ko || [], en: entry.en || [] };
-      }
-    } else if (data && typeof data === 'object') {
-      // object like { "001": { ko: [...], en: [...] }, "002.png": { ... } }
-      for (const k of Object.keys(data)) {
-        const key = String(k).replace('.png', '').padStart(3, '0');
-        const entry = data[k] || {};
-        map[key] = { ko: entry.ko || [], en: entry.en || [] };
-      }
+  <script>
+    const photos = [];
+    for (let i = 1; i <= 58; i++) {
+      const num = String(i).padStart(3, '0');
+      photos.push({ src: `images/${num}.png`, id: `${num}.png` });
     }
-    return map;
-  }
 
-  // Fetch captions (use relative path for GitHub Pages subdirectory)
-  fetch('./comments.json')
-    .then(r => r.json())
-    .then(data => {
-      captions = normalizeCaptions(data);
+    let currentIndex = 0;
+    let captions = {};
+    let currentLang = 'en'; // ✅ English by default
+
+    fetch('comments.json')
+      .then(response => response.json())
+      .then(data => {
+        captions = Object.fromEntries(data.map(entry => [entry.file, entry]));
+        updateViewer();
+      })
+      .catch(error => {
+        console.error("Failed to load captions:", error);
+        updateViewer(); // fallback to image-only
+      });
+
+    function updateViewer() {
+      const photo = photos[currentIndex];
+      const img = document.getElementById("photo");
+      img.src = photo.src;
+      document.getElementById("index").innerText = `${currentIndex + 1} / ${photos.length}`;
+
+      const entry = captions[photo.id];
+      document.getElementById("caption").innerText =
+        entry?.[currentLang]?.join(' / ') || '⚠️ No caption available.';
+    }
+
+    function prevPhoto() {
+      currentIndex = (currentIndex - 1 + photos.length) % photos.length;
       updateViewer();
-    })
-    .catch(err => {
-      console.error('Failed to load captions:', err);
-      updateViewer(); // show images without captions
+    }
+
+    function nextPhoto() {
+      currentIndex = (currentIndex + 1) % photos.length;
+      updateViewer();
+    }
+
+    document.getElementById("photo").onerror = function() {
+      console.warn("Image failed to load:", photos[currentIndex].src);
+      nextPhoto();
+    };
+
+    document.getElementById("photo").addEventListener('click', (event) => {
+      const midpoint = event.target.clientWidth / 2;
+      if (event.offsetX < midpoint) {
+        prevPhoto();
+      } else {
+        nextPhoto();
+      }
     });
 
-  function updateViewer(lang = 'ko') {
-    const photo = photos[currentIndex];
-    const img = document.getElementById('photo');
-    img.src = photo.src;
-
-    const indexEl = document.getElementById('index');
-    if (indexEl) indexEl.innerText = `${currentIndex + 1} / ${photos.length}`;
-
-    const capEl = document.getElementById('caption');
-    if (!capEl) return;
-
-    const entry = captions[photo.id];
-    if (entry && Array.isArray(entry[lang]) && entry[lang].length) {
-      capEl.innerText = entry[lang].join(' / ');
-    } else {
-      capEl.innerText = '';
-      console.warn('No caption for', photo.id, 'lang:', lang);
-    }
-  }
-
-  function prevPhoto() {
-    currentIndex = (currentIndex - 1 + photos.length) % photos.length;
     updateViewer();
-  }
-
-  function nextPhoto() {
-    currentIndex = (currentIndex + 1) % photos.length;
-    updateViewer();
-  }
-
-  document.getElementById('photo').onerror = function () {
-    console.warn('Image failed to load:', photos[currentIndex].src);
-    nextPhoto();
-  };
-
-  document.getElementById('photo').addEventListener('click', (event) => {
-    const midpoint = event.target.clientWidth / 2;
-    if (event.offsetX < midpoint) {
-      prevPhoto();
-    } else {
-      nextPhoto();
-    }
-  });
-
-  // Initialize after DOM ready (in case script moves)
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateViewer);
-  } else {
-    updateViewer();
-  }
-</script>
+  </script>
+</body>
+</html>
