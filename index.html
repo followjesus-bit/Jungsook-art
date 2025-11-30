@@ -6,7 +6,7 @@
   <title>Kellography Photobook</title>
   <style>
     body { font-family: sans-serif; text-align: center; padding: 1em; }
-    img { max-width: 100%; height: auto; }
+    img { max-width: 100%; height: auto; cursor: pointer; }
     .nav { margin: 1em; }
     .section { margin-top: 2em; }
   </style>
@@ -50,7 +50,8 @@
 
     function updateViewer() {
       const photo = photos[currentIndex];
-      document.getElementById("photo").src = photo.src;
+      const img = document.getElementById("photo");
+      img.src = photo.src;
       document.getElementById("caption").innerText = photo.caption;
       document.getElementById("index").innerText = `${currentIndex + 1} / ${photos.length}`;
     }
@@ -68,6 +69,20 @@
         updateViewer();
       }
     }
+
+    document.getElementById("photo").onerror = function() {
+      console.warn("Image failed to load:", photos[currentIndex].src);
+      nextPhoto();
+    };
+
+    document.getElementById("photo").addEventListener('click', (event) => {
+      const midpoint = event.target.clientWidth / 2;
+      if (event.offsetX < midpoint) {
+        prevPhoto();
+      } else {
+        nextPhoto();
+      }
+    });
 
     updateViewer();
   </script>
