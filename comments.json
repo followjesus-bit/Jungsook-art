@@ -218,6 +218,20 @@
 "055.png": {
   "ko": ["끝없는 길 위의 발자국", "지나온 시간의 흔적", "앞으로 나아가는 마음"],
   "en": ["Footsteps on an endless path", "Traces of time passed", "Heart moving forward"]
+},
+  "056.png": {
+    "en": ["056 first description", "056 second line", "056 third line"],
+    "ko": ["056 첫 번째 설명", "056 두 번째 설명", "056 세 번째 설명"]
+},
+  "057.png": {
+    "en": ["057 first description", "057 second line", "057 third line"],
+    "ko": ["057 첫 번째 설명", "057 두 번째 설명", "057 세 번째 설명"]
+},
+  "058.png": {
+    "en": ["058 first description", "058 second line", "058 third line"],
+    "ko": ["058 첫 번째 설명", "058 두 번째 설명", "058 세 번째 설명"]
+  }
 }
+
 
 }
